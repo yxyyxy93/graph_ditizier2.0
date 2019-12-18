@@ -1,0 +1,21 @@
+
+1. click "load graph" or mene->file->load to load picture.
+2. adjust the window to fit the size the picture. full screen recommonded.
+3. click "x axis calibrate";
+   click two points on x axis in graph (rectangular points indication);
+   input the length of the two points, and click "OK".
+   input the start number of x asix, and click "OK"
+   The factors about x axis calibration show on the LCD numbers.
+4. same step as 3 for y axis calibrate.
+5. click "select points"
+   click points on the curve in graph (round points indication);
+6. mene->file->save to save the x and y coordinate
+7. click "clear" to close all graph
+
+3 methods to choose axis type are shown on the GUI. It is easy to find them.
+
+auto select:
+click "auto select";
+click one point on the curve;
+auto selected points show (round points indication);
+mene->file->save to save the x and y coordinate
