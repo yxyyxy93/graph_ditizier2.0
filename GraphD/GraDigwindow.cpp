@@ -41,10 +41,16 @@ void GraDigwindow::mousePressEvent(QMouseEvent *event)
         QImage mimg = map.toImage();
         // judge the minimum point
         int count=0; // limit the number of points too 100
-        while (pt_scene.x()-x_sr>=y_base && count<100){
+        try {
+            while (pt_scene.x()-x_sr>=y_base && count <= 100){
 //            qDebug() << pts[0].x() << "y_base" << y_base;
-            autoit(pt_scene, mimg);
-            count++;
+                autoit(pt_scene, mimg);
+                count++;
+            }
+        }
+        catch (std::runtime_error & e) {
+            qDebug() << "runtime is too long";
+            e.what();
         }
     }
 }
@@ -53,6 +59,13 @@ void GraDigwindow::xCalibrationCheck() // This function is called to check and f
 {
     if (CalibrationVector.size()==2) // We need only two points to finish calibration
     {
+        // check whether select right point
+        if (abs(CalibrationVector[0].y()-CalibrationVector[1].y()) >=10){
+            QMessageBox msgBox;
+            msgBox.setText("The calibrating points might not be correctly chosen.");
+            msgBox.exec();
+        }
+
         x_base += CalibrationVector[1].y();
         xflag=false; // Switching off calibration as soon as we have two points
         bool ok; // This boolean varaible is True if the user accepts the dialog and false if they rejec the dialog (press "Cancel" intead of "OK")
@@ -78,6 +91,13 @@ void GraDigwindow::yCalibrationCheck() // This function is called to check and f
 {
     if (CalibrationVector.size()==2) // We need only two points to finish calibration
     {
+        // check whether select right point
+        if (abs(CalibrationVector[0].x()-CalibrationVector[1].x()) >=10){
+            QMessageBox msgBox;
+            msgBox.setText("The calibrating points might not be correctly chosen.");
+            msgBox.exec();
+        }
+
         y_base += CalibrationVector[1].x();
         yflag=false; // Switching off calibration as soon as we have two points
 
